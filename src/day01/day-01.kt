@@ -14,7 +14,7 @@ fun main() {
 
     lines.forEach {
         if (it.isBlank()) {
-            data.add(mutableListOf())
+            data.add(mutableListOf()) // TODO usar +=
         } else {
             data.last().add(it.toInt())
         }

@@ -54,19 +54,4 @@ fun main() {
         }
 
     println(part2)
-
-////    val str = "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
-//    val str = "bvwbjplbgvbhsrlpgdmjqwftvncz"
-//
-//    println(findMarker(str))
-//
-//
-////    println(lines)
-//
-//
-//    val part1 = 42
-//
-//    val part2 = 42
-//
-//    printResults("", part1, part2)
 }
