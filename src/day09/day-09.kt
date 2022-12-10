@@ -165,12 +165,8 @@ fun printGrid(head: Coord, tail: Coord) {
         }
         println()
     }
-//    for (y in NUMBER_OF_LINES downTo 1) {
-//        for (x in 0 until NUMBER_OF_COLUMNS) {
-//            println("$x, $y")
-//        }
-//    }
 }
+
 
 // PART 1
 const val NUMBER_OF_LINES = 5
@@ -182,6 +178,7 @@ val ORIGIN = Coord(0, 4)
 //const val NUMBER_OF_LINES = 21
 //const val NUMBER_OF_COLUMNS = 26
 //val ORIGIN = Coord(11, 15)
+
 
 var DEBUG = false
 var HEAD_STR = "H"
