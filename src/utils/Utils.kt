@@ -14,6 +14,9 @@ private fun dir(directory: String) = listOf(
 fun readLines(directory: String, filename: String) = File(dir(directory) + filename).readLines()
 
 
+fun readLinesAndGroup(directory: String, filename: String) = File(dir(directory) + filename).readText().split(System.lineSeparator()+System.lineSeparator()).map { it.split(System.lineSeparator()) }
+
+
 fun printResults(part1Check: String, part1: Any, part2: Any) {
     val part1Message = if (part1.toString() == part1Check) "Correct Solution for example with" else "Wrong Solution for example with"
 

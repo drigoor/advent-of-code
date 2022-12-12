@@ -4,7 +4,7 @@ package day05
 import utils.*
 
 
-val directory = object {}.javaClass.packageName // from: https://www.techiedelight.com/get-name-current-function-kotlin/
+val directory: String = object {}.javaClass.packageName // from: https://www.techiedelight.com/get-name-current-function-kotlin/
 
 
 fun parseStackLine(line: String): Array<String> {

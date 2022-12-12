@@ -4,26 +4,23 @@ package day08
 import utils.*
 
 
-val directory = object {}.javaClass.packageName // from: https://www.techiedelight.com/get-name-current-function-kotlin/
-
-
-fun nrVisibleInEdge(grid: List<List<Int>>) = grid[0].size * 2 + (grid.size - 2) * 2
+val directory: String = object {}.javaClass.packageName // from: https://www.techiedelight.com/get-name-current-function-kotlin/
 
 
 fun isVisibleFromLeft(grid: List<List<Int>>, line: Int, column: Int) =
-    (0 until column).find { grid[line][it] >= grid[line][column] } == null
+    (column - 1 downTo 0).find { grid[line][it] >= grid[line][column] } == null
 
 
 fun isVisibleFromRight(grid: List<List<Int>>, line: Int, column: Int) =
-    ((column + 1) until grid[line].size).find { grid[line][it] >= grid[line][column] } == null
+    (column + 1 until grid[line].size).find { grid[line][it] >= grid[line][column] } == null
 
 
 fun isVisibleFromTop(grid: List<List<Int>>, line: Int, column: Int) =
-    (0 until line).find { grid[it][column] >= grid[line][column] } == null
+    (line - 1 downTo 0).find { grid[it][column] >= grid[line][column] } == null
 
 
 fun isVisibleFromBottom(grid: List<List<Int>>, line: Int, column: Int) =
-    ((line + 1) until grid[line].size).find { grid[it][column] >= grid[line][column] } == null
+    (line + 1 until grid[line].size).find { grid[it][column] >= grid[line][column] } == null
 
 
 fun isVisible(grid: List<List<Int>>, line: Int, column: Int) =
@@ -46,6 +43,9 @@ fun nrVisibleInterior(grid: List<List<Int>>): Int {
 
     return result
 }
+
+
+fun nrVisibleInEdge(grid: List<List<Int>>) = grid[0].size * 2 + (grid.size - 2) * 2
 
 
 fun viewDistanceLeft(grid: List<List<Int>>, line: Int, column: Int): Int {
@@ -93,7 +93,7 @@ fun viewDistanceTop(grid: List<List<Int>>, line: Int, column: Int): Int {
 fun viewDistanceBottom(grid: List<List<Int>>, line: Int, column: Int): Int {
     var result = 0
 
-    for (l in (line + 1) until grid[line].size) {
+    for (l in line + 1 until grid[line].size) {
         result++
         if (grid[l][column] >= grid[line][column]) {
             return result
@@ -137,5 +137,5 @@ fun main() {
 
     val part2 = maxViewDistanceInterior(grid)
 
-    printResults("1695", part1, part2)
+    printResults("1695", part1, part2) // part 2 --> 287040
 }

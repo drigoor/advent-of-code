@@ -4,7 +4,7 @@ package day04
 import utils.*
 
 
-val directory = object {}.javaClass.packageName // from: https://www.techiedelight.com/get-name-current-function-kotlin/
+val directory: String = object {}.javaClass.packageName // from: https://www.techiedelight.com/get-name-current-function-kotlin/
 
 
 fun parseRange(str: String): IntRange {
@@ -13,23 +13,10 @@ fun parseRange(str: String): IntRange {
 }
 
 
-fun tottalyIn(r1: IntRange, r2: IntRange): Boolean {
-    val a = r1.first
-    val b = r1.last
-    val x = r2.first
-    val y = r2.last
+fun isTottalyIn(r1: IntRange, r2: IntRange) = (r1.contains(r2.first) && r1.contains(r2.last)) || (r2.contains(r1.first) && r2.contains(r1.last))
 
-    return (r1.contains(x) && r1.contains(y)) || (r2.contains(a) && r2.contains(b))
-}
 
-fun partiallyIn(r1: IntRange, r2: IntRange): Boolean {
-    val a = r1.first
-    val b = r1.last
-    val x = r2.first
-    val y = r2.last
-
-    return r1.contains(x) || r1.contains(y) || r2.contains(a) || r2.contains(b)
-}
+fun isPartiallyIn(r1: IntRange, r2: IntRange) =  r1.contains(r2.first) || r1.contains(r2.last) || r2.contains(r1.first) || r2.contains(r1.last)
 
 
 fun main() {
@@ -43,13 +30,13 @@ fun main() {
 
     val part1 = common
         .map {
-            tottalyIn(it[0], it[1])
+            isTottalyIn(it[0], it[1])
         }
         .count { it }
 
     val part2 = common
         .map {
-            partiallyIn(it[0], it[1])
+            isPartiallyIn(it[0], it[1])
         }
         .count { it }
 
