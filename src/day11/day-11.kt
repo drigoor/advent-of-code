@@ -19,6 +19,8 @@ enum class IntArithmetics : BinaryOperator<Int>, IntBinaryOperator { // from: ht
     };
 
     override fun applyAsInt(t: Int, u: Int) = apply(t, u)
+
+    fun run(a: Int, b: Int) = apply(a, b)
 }
 
 
@@ -66,7 +68,7 @@ data class Monkey(val items: MutableList<Int>, val operation: Operation, val div
                 else -> (rightOperand as Value).value
             }
             val currentLevel = operation.operator.apply(left, right)
-            val newLevel = currentLevel / 3
+            val newLevel = currentLevel // 3
             val isBored = (newLevel % divisible) == 0
             val monkey = if (isBored) {
                 monkeys.first
@@ -74,8 +76,6 @@ data class Monkey(val items: MutableList<Int>, val operation: Operation, val div
                 monkeys.second
             }
             counts++
-
-//            newLevel = currentLevel
 
             Pair(newLevel, monkey)
         }
@@ -115,7 +115,7 @@ fun processTurn(monkeys: List<Monkey>) {
 }
 
 
-var DEBUG = false
+var DEBUG = true
 
 
 fun main() {
@@ -124,20 +124,11 @@ fun main() {
     val monkeys = lines.map { parseMonkey(it) }
 
     for (i in 1..20) {
-        DEBUG = true
-
-        if (DEBUG) {
-            println("After round $i, the monkeys are holding items with these worry levels:")
-        }
         processTurn(monkeys)
 
-        DEBUG = false
-
-        if (DEBUG) {
-            println("== After round $i ==")
-            monkeys.forEachIndexed { i, m ->
-                println("Monkey $i inspected items ${m.counts} times.")
-            }
+        println("== After round $i ==")
+        monkeys.forEachIndexed { i, m ->
+            println("Monkey $i inspected items ${m.counts} times.")
         }
     }
 
