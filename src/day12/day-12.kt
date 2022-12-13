@@ -1,15 +1,28 @@
 package day12
 
 
+import day12.Dir.*
 import utils.*
 
 
 val directory: String = object {}.javaClass.packageName // from: https://www.techiedelight.com/get-name-current-function-kotlin/
 
+
+enum class Dir {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+}
+/*
 const val UP = 0
 const val DOWN = 1
 const val LEFT = 2
 const val RIGHT = 3
+
+
+ */
+
 
 val directions = arrayOf("^", "v", "<", ">") // Up, Down, Left, Right
 
@@ -51,11 +64,6 @@ data class Spot(val elevation: Int, val coord: Coord, val dirs: Array<Boolean> =
         result = 31 * result + visited.hashCode()
         return result
     }
-}
-
-
-data class Step(val value: Int) {
-    override fun toString() = directions[value]
 }
 
 
@@ -109,12 +117,97 @@ fun fillSpotDirections(grid: Grid) {
         spots.forEachIndexed { c, spot ->
             val dirs = spot.dirs
 
-            dirs[UP] = isDirTopOk(grid, l, c)
-            dirs[DOWN] = isDirDownOk(grid, l, c)
-            dirs[LEFT] = isDirLeftOk(grid, l, c)
-            dirs[RIGHT] = isDirRightOk(grid, l, c)
+            dirs[UP.ordinal] = isDirTopOk(grid, l, c)
+            dirs[DOWN.ordinal] = isDirDownOk(grid, l, c)
+            dirs[LEFT.ordinal] = isDirLeftOk(grid, l, c)
+            dirs[RIGHT.ordinal] = isDirRightOk(grid, l, c)
         }
     }
+}
+
+
+fun visitSpot(grid: Grid, start: Coord, end: Coord, next: Coord, dir: Dir): List<Spot>? {
+    val (l, c) = start
+    val spot = grid[l][c]
+
+    val (lNext, cNext) = next
+
+    spot.visited = true
+
+    if (spot.dirs[dir.ordinal] && !grid[lNext][cNext].visited) {
+        val tmp = part1Fun(grid, next, end)
+
+        if (tmp != null) {
+            val result = mutableListOf(spot)
+
+            result.addAll(tmp)
+
+            return result
+        }
+    }
+
+    return null
+}
+
+
+fun part1Fun(grid: Grid, start: Coord, end: Coord): List<Spot>? {
+    val (l, c) = start
+
+    if (start == end) {
+        val spot = grid[l][c]
+
+        spot.visited = true
+
+        return listOf(spot)
+    }
+
+    val topSol = visitSpot(grid, start, end, Coord(l - 1, c), UP)
+
+    if (topSol != null) {
+        return topSol
+    }
+
+    val downSol = visitSpot(grid, start, end, Coord(l + 1, c), DOWN)
+
+    if (downSol != null) {
+        return downSol
+    }
+
+    val leftSol = visitSpot(grid, start, end, Coord(l, c - 1), LEFT)
+
+    if (leftSol != null) {
+        return leftSol
+    }
+
+    val rightSol = visitSpot(grid, start, end, Coord(l, c + 1), RIGHT)
+
+    if (rightSol != null) {
+        return rightSol
+    }
+
+
+    /*
+        if (spot.dirs[DOWN] && !grid[l + 1][c].visited) {
+            val tmp = part1Fun(grid, Coord(l + 1, c), end)
+
+            if (tmp != null) {
+                val result = mutableListOf(spot)
+                result.addAll(tmp)
+                return result
+            }
+        }
+
+        if (spot.dirs[LEFT] && !grid[l][c - 1].visited) {
+            val tmp = part1Fun(grid, Coord(l, c - 1), end)
+
+            if (tmp != null) {
+                val result = mutableListOf(spot)
+                result.addAll(tmp)
+                return result
+            }
+        }
+    */
+    return null
 }
 
 
@@ -135,7 +228,11 @@ fun main() {
         }
     }
 
-    val part1 = 42
+    val part1Fun = part1Fun(grid, start, end)
+
+    println(part1Fun)
+
+    val part1 = part1Fun?.size ?: -1
 
     val part2 = 42
 
