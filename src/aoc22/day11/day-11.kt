@@ -1,8 +1,8 @@
-package day11
+package aoc22.day11
 
 
-import day11.IntArithmetics.*
-import utils.*
+import aoc22.day11.IntArithmetics.*
+import aoc22.utils.*
 import java.util.function.BinaryOperator
 import java.util.function.IntBinaryOperator
 

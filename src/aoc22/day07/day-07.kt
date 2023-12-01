@@ -1,7 +1,7 @@
-package day07
+package aoc22.day07
 
 
-import utils.*
+import aoc22.utils.*
 
 
 val directory: String = object {}.javaClass.packageName // from: https://www.techiedelight.com/get-name-current-function-kotlin/

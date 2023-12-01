@@ -1,4 +1,4 @@
-package utils
+package aoc22.utils
 
 
 import java.io.File
