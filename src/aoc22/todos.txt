@@ -1,0 +1,25 @@
+
+(1)
+mudar as inicializações para não definir tipos:
+
+val newItems: MutableList<Int> = mutableListOf()
+->
+val newItems = mutableListOf<Int>
+
+
+(2)
+
+day 9 & day 12
+have maps to do, behaviour to check if something is near / in which direction
+
+
+(3)
+
+https://kotlinlang.org/docs/competitive-programming.html#more-tips-and-tricks
+
+
+
+
+MUSIC
+
+https://www.youtube.com/watch?v=8vnHJNjwuqg

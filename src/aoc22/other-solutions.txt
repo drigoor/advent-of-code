@@ -1,0 +1,130 @@
+
+======
+ELIXIR
+======
+
+https://www.youtube.com/watch?v=mDxJjqx5-ns
+    2021
+
+https://www.youtube.com/watch?v=OQullJb-DZ4
+    2022
+
+
+=======
+CLOJURE
+=======
+
+https://www.youtube.com/watch?v=aNhZI146NOo&list=PLbPrugU2oQ8W5qGiiiFJRlQ8vZ8AZXlG8
+    Fred Overflow
+        https://github.com/fredoverflow/clopad
+
+
+========================================================================================================================
+https://github.com/inovex/Advent-of-Code
+========================================================================================================================
+
+
+========================================================================================================================
+https://github.com/James-Ansley/adventofcode
+========================================================================================================================
+
+UTILS
+    https://github.com/James-Ansley/adventofcode/blob/main/kotlin/src/main/kotlin/aoc22.utils.kt
+    --------------------------------------------------------------------------------------
+
+    fun read(path: String): String =
+        object {}.javaClass.getResource(path)!!.readText().trimEnd()
+
+
+    fun readLines(path: String): List<String> =
+        read(path).lines()
+
+
+    fun readInts(path: String): List<Int> =
+        read(path).lines().map { it.toInt() }
+
+
+    fun <T> List<List<T>>.transpose(): List<List<T>> =
+        this[0].indices.map { j -> this.indices.reversed().map { i -> this[i][j] } }
+
+DAY 1
+    https://github.com/James-Ansley/adventofcode/blob/main/kotlin/src/main/kotlin/y2022/aoc22.day01.kt
+    --------------------------------------------------------------------------------------------
+    fun main() {
+        val data = read("y2022/aoc22.day01")
+            .split("\n\n")
+            .map { it.lines().sumOf { item -> item.toInt() } }
+            .sortedDescending()
+
+        println(data[0])
+        println(data.take(3).sum())
+    }
+
+
+DAY 6
+    https://github.com/James-Ansley/adventofcode/blob/main/kotlin/src/main/kotlin/y2022/aoc22.day06.kt
+    --------------------------------------------------------------------------------------------
+
+    fun main() {
+        val data = read("y2022/aoc22.day06")
+        val fours = data.windowed(4).map { it.toSet() }
+        val fourteens = data.windowed(14).map { it.toSet() }
+
+        println(fours.indexOfFirst { it.size == 4 } + 4)
+        println(fourteens.indexOfFirst { it.size == 14 } + 14)
+    }
+
+
+========================================================================================================================
+https://github.com/LiquidFun/adventofcode
+========================================================================================================================
+
+    DAY 6
+    https://github.com/LiquidFun/adventofcode/blob/main/2022/06/06.kt
+    -----------------------------------------------------------------
+
+    fun String.solve(n: Int) = n + this.windowed(n).indexOfFirst { it.toSet().size == it.length }
+
+    fun main() {
+        val s = readln()
+        println(s.solve(4))
+        println(s.solve(14))
+    }
+
+    DAY 7
+    https://github.com/LiquidFun/adventofcode/blob/main/2022/07/07.kt
+    -----------------------------------------------------------------
+
+    data class Tree(val name: String, var parent: Tree?) {
+        var size: Int = 0
+        val children: MutableList<Tree> = mutableListOf()
+    }
+
+    fun main() {
+        val shell = generateSequence(::readlnOrNull).toList()
+            .map { it.replace("$ ", "") }
+            .filter { it != "ls" }
+        val root = Tree("/", null)
+        var current = root
+        for (line in shell) {
+            var (command, arg) = line.split(" ")
+            when (command) {
+                "cd" -> when (arg) {
+                    "/" -> current = root
+                    ".." -> current = current.parent!!
+                    else -> current = current.children.filter { it.name == arg }.first()
+                }
+                "dir" -> current.children.add(Tree(arg, current))
+                else -> current.size += command.toInt()
+            }
+        }
+        val sizes: MutableList<Int> = mutableListOf()
+        fun recursiveSizes(tree: Tree): Int {
+            sizes.add(tree.size + tree.children.sumOf(::recursiveSizes) )
+            return sizes.last()
+        }
+        recursiveSizes(root)
+        println(sizes.filter { it <= 100000 }.sum())
+        val needed = 30000000 - (70000000 - sizes.max())
+        println(sizes.filter { it >= needed }.min())
+    }
