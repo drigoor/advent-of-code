@@ -59,13 +59,12 @@ fun main() {
             "3   3"
     val example1 = raw1.split('\n')
     check(part1(example1) == 11)
-    part1(input).println() // TODO SOLUTION day 0 part 1 = 2769675
+    part1(input).println() // SOLUTION day 1 part 1 = 2769675
 
 
     "--- 2 ---------------------------".println()
 
     val example2 = raw1.split('\n')
     check(part2(example2) == 31)
-    part2(input).println() // TODO SOLUTION day 0 part 2 = 24643097
-
+    part2(input).println() // SOLUTION day 1 part 2 = 24643097
 }

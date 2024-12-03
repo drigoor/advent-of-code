@@ -15,9 +15,6 @@ fun Any?.println() = println(this)
 fun String.splitNoBlanks() = this.split("\\s+".toRegex()).filter { it.isNotBlank() }
 
 
-fun List<String>.splitNoBlanks() = this.map { it.splitNoBlanks() }
-
-
 fun List<String>.splitNoBlanks2Int() = this.map { it.splitNoBlanks().map { it.toInt() } }
 
 
