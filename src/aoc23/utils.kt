@@ -67,7 +67,7 @@ fun input(year: Int, day: Int): List<String> {
 
     val f = File("$dir/${"%02d".format(day)}.txt") // converts 1 -> 01
     if (!f.exists()) {
-            f.createNewFile()
+        f.createNewFile()
         f.printWriter().use { out ->
             out.print(fetch(year, day))
         }
