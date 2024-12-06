@@ -48,3 +48,8 @@ fun input(year: Int, day: Int): List<String> {
 
     return f.readLines()
 }
+
+
+fun <T> removeElementAtIndex(list: List<T>, index: Int): List<T> {
+    return list.slice(0 until index) + list.slice(index + 1 until list.size)
+}
